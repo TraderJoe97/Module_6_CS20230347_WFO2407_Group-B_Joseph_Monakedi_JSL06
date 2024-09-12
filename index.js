@@ -4,6 +4,15 @@ const menu = {
     MainCourses: ["Margherita Pizza", "Spaghetti Carbonara"],
     Desserts: ["Tiramisu", "Cheesecake"]
 };
+const prices = {
+    "Garlic Bread": 34.99,
+    "Bruschetta": 28.99,
+    "Margherita Pizza": 89.00,
+    "Spaghetti Carbonara": 99.99,
+    "Tiramisu": 50,
+    "Cheesecake": 69.99
+}
+
 
 // Function to display menu items by category
 function displayMenuItems(menu) {
@@ -30,7 +39,7 @@ function displayMenuItems(menu) {
             // Set the text content of the list item element to the item name
             itemEl.textContent = item
             // Attach a click event listener to the list item to add it to the order
-            itemEl.addEventListener("click", addToOrder(item))
+            itemEl.addEventListener("click", () => {addToOrder(item)})
             // Append the list item to the list of items
             itemsList.appendChild(itemEl)
         })
@@ -41,16 +50,19 @@ function displayMenuItems(menu) {
 // Callback function for adding an item to the order
 function addToOrder(itemName) {
     // Get the order items list and the order total element from the HTML
-
+    const orderItemsEl = document.getElementById("order-items")
+    const orderTotalEL = document.getElementById("order-total")
     // Create a list item for the order
-
+    const orderItem = document.createElement("li")
     // Set the text content of the list item to the item name
-
+    orderItem.textContent = itemName
     // Append the list item to the order items list
-
+    orderItemsEl.appendChild(orderItem)
     // Calculate and update the total price
-
+    const currentTotal = parseFloat(orderTotalEL.textContent);
+    const newTotal= currentTotal + prices[itemName]
     // Update the text content of the order total element with the new total
+    orderTotalEL.textContent = `${newTotal.tofixed(2)}`;
 }
 
 // Function to initialize the menu system
